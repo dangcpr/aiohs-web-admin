@@ -21,7 +21,13 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/main',
-      builder: (context, state) => const MainScreen()
+      redirect: (context, state) {
+        if (isLogin == false)
+          return '/login';
+        else
+          return '/main';
+      },
+      builder: (context, state) => const MainScreen(),
     )
   ],
 );
