@@ -23,6 +23,7 @@ class colorProject {
   static const Color subColor = Color(0xFF696969);
   static const Color smallTitle = Colors.black;
   static const Color primaryColorLight = Color.fromARGB(255, 0, 223, 156);
+  static const Color primaryColorLightest = Color.fromARGB(255, 143, 255, 221);
   static const Color secondaryColorLight = Color.fromARGB(255, 78, 252, 255);
 }
 
