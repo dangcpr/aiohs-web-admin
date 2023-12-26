@@ -1,4 +1,4 @@
-import 'package:aiohs_web_admin/login/views/login_screen.dart';
+import 'package:aiohs_web_admin/login/views/login_page.dart';
 import 'package:aiohs_web_admin/main_screen/views/main_screen.dart';
 import 'package:aiohs_web_admin/utilities/global/varible.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +17,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/login',
-      builder: (context, state) => const LoginScreen(),
+      builder: (context, state) => const LoginPage(),
     ),
     GoRoute(
       path: '/main',

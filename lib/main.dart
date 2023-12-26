@@ -1,10 +1,12 @@
 import 'package:aiohs_web_admin/router/controller.dart';
 import 'package:aiohs_web_admin/theme/dark_theme.dart';
 import 'package:aiohs_web_admin/theme/light_theme.dart';
+import 'package:aiohs_web_admin/utilities/constants/list_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(providers: listProvider, child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

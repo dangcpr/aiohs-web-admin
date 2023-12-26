@@ -1,9 +1,12 @@
-import 'package:aiohs_web_admin/login/controllers/login.dart';
+// ignore_for_file: use_build_context_synchronously
+import 'package:aiohs_web_admin/login/cubits/login/login_cubit.dart';
+import 'package:aiohs_web_admin/login/cubits/user_cubit.dart';
 import 'package:aiohs_web_admin/responsive/controllers/size.dart';
 import 'package:aiohs_web_admin/utilities/components/text_field.dart';
 import 'package:aiohs_web_admin/utilities/constants/varible.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginWidget extends StatelessWidget {
@@ -87,9 +90,16 @@ class LoginWidget extends StatelessWidget {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await LoginController().login();
-                      print('Login success!');
-                      context.go('/main');
+                      try {
+                        LoginCubit userCubit = context.read<LoginCubit>();
+                        await userCubit.login(emailController.text, passwordController.text);
+                        context.read<UserCubit>().setUser(
+                          userCubit.user
+                        );
+                        context.go('/main');
+                      } catch (e) {
+                        print(e);
+                      }
                     } else {
                       print('Login failed!');
                     }

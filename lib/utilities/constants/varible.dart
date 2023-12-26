@@ -1,10 +1,22 @@
 import 'dart:ui';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-var fontFamily = 'Poppins-Regular';
-var fontFamilyBold = 'Poppins-ExtraBold';
-var logoFull = 'assets/images/logo_full.png';
+const fontFamily = 'Poppins-Regular';
+const fontFamilyBold = 'Poppins-ExtraBold';
+const logoFull = 'assets/images/logo_full.png';
+const debugServer = 'http://192.168.84.128:9000';
+final dio = Dio(
+  BaseOptions(
+    baseUrl: debugServer,
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+    validateStatus: (status) {
+      return status! < 500;
+    },
+  ),
+);
 
 class colorProject {
   static const Color primaryColor = Color(0xFF00B27D);
