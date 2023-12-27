@@ -1,4 +1,5 @@
 import 'package:aiohs_web_admin/login/models/user.dart';
+import 'package:aiohs_web_admin/utilities/constants/function.dart';
 import 'package:aiohs_web_admin/utilities/constants/varible.dart';
 import 'package:aiohs_web_admin/utilities/global/varible.dart';
 import 'package:dio/dio.dart';
@@ -33,18 +34,7 @@ class LoginController {
         throw response.data['message'];
       }
     } on DioException catch (e) {
-      debugPrint(e.type.toString());
-      if (e.type == DioExceptionType.receiveTimeout ||
-          e.type == DioExceptionType.connectionTimeout) {
-        throw 'Connection Timeout';
-      }
-
-      if (e.type == DioExceptionType.unknown ||
-          e.type == DioExceptionType.connectionError) {
-        throw 'Internet Error or Server Error';
-      }
-      debugPrint(e.type.toString());
-      throw 'Server Error';
+      throw handleError(e);
     }
   }
 }

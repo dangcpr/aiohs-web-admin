@@ -34,6 +34,13 @@ final router = GoRouter(
           child: MainScreen(),
         );
       },
+      redirect: (context, state) {
+        if (isLogin == false) {
+          return '/login';
+        } else {
+          return null;
+        }
+      },
     ),
     GoRoute(
       path: '/main',

@@ -6,13 +6,13 @@ class TextFieldBasic extends StatefulWidget {
       {super.key,
       required this.controller,
       required this.label,
-      required this.icon,
+      this.icon,
       this.obscureText,
       this.validator});
 
   final TextEditingController controller;
   final String label;
-  final Widget icon;
+  final Widget? icon;
   final bool? obscureText;
   final String? Function(String?)? validator;
 

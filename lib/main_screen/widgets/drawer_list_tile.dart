@@ -24,12 +24,10 @@ class DrawerListTile extends StatelessWidget {
       },
       leading: Icon(
         icon,
-        color: Colors.black,
         size: 20,
       ),
       title: Text(
         title,
-        style: TextStyle(color: Colors.black),
       ),
     );
   }

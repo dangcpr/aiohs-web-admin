@@ -11,7 +11,15 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      surfaceTintColor: colorProject.primaryColor.withOpacity(0.1),
+      elevation: 2,
+      surfaceTintColor: colorProject.primaryColor,
+      shadowColor: Colors.black.withOpacity(0.5),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(0),
+          bottomRight: Radius.circular(0),
+        ),
+      ),
       child: ListView(
         children: [
           DrawerHeader(
