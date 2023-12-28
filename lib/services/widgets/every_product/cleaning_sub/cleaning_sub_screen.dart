@@ -2,8 +2,8 @@
 
 import 'package:aiohs_web_admin/responsive/controllers/size.dart';
 import 'package:aiohs_web_admin/services/controllers/update.dart';
-import 'package:aiohs_web_admin/services/cubits/every_service/cleaning_hourly/cleaning_hourly_price_cubit.dart';
-import 'package:aiohs_web_admin/services/cubits/every_service/cleaning_hourly/cleaning_hourly_price_state.dart';
+import 'package:aiohs_web_admin/services/cubits/every_service/cleaning_sub/cleaning_sub_price_cubit.dart';
+import 'package:aiohs_web_admin/services/cubits/every_service/cleaning_sub/cleaning_sub_price_state.dart';
 import 'package:aiohs_web_admin/services/cubits/get_service/get_service_cubit.dart';
 import 'package:aiohs_web_admin/services/widgets/price_line.dart';
 import 'package:aiohs_web_admin/utilities/components/button_basic.dart';
@@ -12,8 +12,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CleaningHourlyPriceScreen extends StatefulWidget {
-  const CleaningHourlyPriceScreen(
+class CleaningSubPriceScreen extends StatefulWidget {
+  const CleaningSubPriceScreen(
       {super.key,
       required this.name,
       required this.title,
@@ -24,14 +24,14 @@ class CleaningHourlyPriceScreen extends StatefulWidget {
   final String icon_url;
 
   @override
-  State<CleaningHourlyPriceScreen> createState() => _CleaningHourlyPriceState();
+  State<CleaningSubPriceScreen> createState() => _CleaningSubPriceScreenState();
 }
 
-class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
+class _CleaningSubPriceScreenState extends State<CleaningSubPriceScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<GetCleaningHourlyPriceCubit>().getCleaningHourlyPrice();
+    context.read<GetCleaningSubPriceCubit>().getCleaningSubPrice();
   }
 
   TextEditingController titleController = TextEditingController();
@@ -56,31 +56,31 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: SingleChildScrollView(
         child: BlocBuilder(
-          bloc: context.watch<GetCleaningHourlyPriceCubit>(),
+          bloc: context.watch<GetCleaningSubPriceCubit>(),
           builder: (context, state) {
-            if (state is GetCleaningHourlyPriceLoading) {
+            if (state is GetCleaningSubPriceLoading) {
               return Center(
                   child: CircularProgressIndicator(
                 color: colorProject.primaryColor,
               ));
-            } else if (state is GetCleaningHourlyPriceSuccess) {
+            } else if (state is GetCleaningSubPriceSuccess) {
               var formKey = GlobalKey<FormState>();
               titleController.text = widget.title;
               nameController.text = widget.name;
               unitPriceController.text =
-                  state.cleaningHourlyPrice.unit_price.toString();
+                  state.cleaningSubPrice.unit_price.toString();
               discountController.text =
-                  state.cleaningHourlyPrice.discount.toString();
+                  state.cleaningSubPrice.discount.toString();
               bringToolController.text =
-                  state.cleaningHourlyPrice.bring_tools.toString();
+                  state.cleaningSubPrice.bring_tools.toString();
               onPeakDateController.text =
-                  state.cleaningHourlyPrice.on_peak_date.toString();
+                  state.cleaningSubPrice.on_peak_date.toString();
               onPeakHourController.text =
-                  state.cleaningHourlyPrice.on_peak_hour.toString();
+                  state.cleaningSubPrice.on_peak_hour.toString();
               onWeekendController.text =
-                  state.cleaningHourlyPrice.on_weekend.toString();
+                  state.cleaningSubPrice.on_weekend.toString();
               onHolidayController.text =
-                  state.cleaningHourlyPrice.on_holiday.toString();
+                  state.cleaningSubPrice.on_holiday.toString();
 
               return Form(
                 key: formKey,
@@ -88,13 +88,13 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SelectableText(
-                      "Chỉnh sửa giá dịch vụ giúp việc theo ca lẻ bên dưới",
+                      "Chỉnh sửa giá dịch vụ giúp việc dài hạn bên dưới",
                       style: TextStyle(
                         fontFamily: fontFamily,
                         fontSize: fontSize.medium,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     PriceLine(
                       title: "Tên dịch vụ",
                       price: titleController,
@@ -146,7 +146,7 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                                     });
                                     try {
                                       await UpdateServiceController()
-                                          .updateCleaningHourly(
+                                          .updateCleaningSub(
                                         title: titleController.text,
                                         name: nameController.text,
                                         icon_url: widget.icon_url,
@@ -241,7 +241,7 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                   ],
                 ),
               );
-            } else if (state is GetCleaningHourlyPriceFailure) {
+            } else if (state is GetCleaningSubPriceFailure) {
               return Center(child: Text(state.error));
             }
             return Container();

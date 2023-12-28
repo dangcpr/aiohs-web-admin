@@ -17,6 +17,7 @@ class _ServiceTableState extends State<ServiceTable> {
   bool ascending = false;
   @override
   Widget build(BuildContext conSelectableText) {
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: BlocBuilder(
@@ -40,6 +41,7 @@ class _ServiceTableState extends State<ServiceTable> {
               ),
               headingTextStyle: TextStyle(
                 fontFamily: fontFamilyBold,
+                color: isDark ? Colors.white : Colors.black,
               ),
               columns: [
                 DataColumn2(label: SelectableText("ID"), fixedWidth: 40),

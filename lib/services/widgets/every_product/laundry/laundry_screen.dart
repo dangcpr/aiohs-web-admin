@@ -2,8 +2,8 @@
 
 import 'package:aiohs_web_admin/responsive/controllers/size.dart';
 import 'package:aiohs_web_admin/services/controllers/update.dart';
-import 'package:aiohs_web_admin/services/cubits/every_service/cleaning_hourly/cleaning_hourly_price_cubit.dart';
-import 'package:aiohs_web_admin/services/cubits/every_service/cleaning_hourly/cleaning_hourly_price_state.dart';
+import 'package:aiohs_web_admin/services/cubits/every_service/laundry/laundry_price_cubit.dart';
+import 'package:aiohs_web_admin/services/cubits/every_service/laundry/laundry_price_state.dart';
 import 'package:aiohs_web_admin/services/cubits/get_service/get_service_cubit.dart';
 import 'package:aiohs_web_admin/services/widgets/price_line.dart';
 import 'package:aiohs_web_admin/utilities/components/button_basic.dart';
@@ -12,8 +12,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CleaningHourlyPriceScreen extends StatefulWidget {
-  const CleaningHourlyPriceScreen(
+class LaundryPriceScreen extends StatefulWidget {
+  const LaundryPriceScreen(
       {super.key,
       required this.name,
       required this.title,
@@ -24,14 +24,14 @@ class CleaningHourlyPriceScreen extends StatefulWidget {
   final String icon_url;
 
   @override
-  State<CleaningHourlyPriceScreen> createState() => _CleaningHourlyPriceState();
+  State<LaundryPriceScreen> createState() => _LaundryPriceScreenState();
 }
 
-class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
+class _LaundryPriceScreenState extends State<LaundryPriceScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<GetCleaningHourlyPriceCubit>().getCleaningHourlyPrice();
+    context.read<GetLaundryPriceCubit>().getLaundryPrice();
   }
 
   TextEditingController titleController = TextEditingController();
@@ -43,6 +43,17 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
   TextEditingController onPeakHourController = TextEditingController();
   TextEditingController onWeekendController = TextEditingController();
   TextEditingController onHolidayController = TextEditingController();
+  TextEditingController clothesController = TextEditingController();
+  TextEditingController blanketController = TextEditingController();
+  TextEditingController mosquitoNetController = TextEditingController();
+  TextEditingController netController = TextEditingController();
+  TextEditingController draperyController = TextEditingController();
+  TextEditingController topperController = TextEditingController();
+  TextEditingController pillowController = TextEditingController();
+  TextEditingController complexController = TextEditingController();
+  TextEditingController vietnamDressController = TextEditingController();
+  TextEditingController weedingDressController = TextEditingController();
+  TextEditingController bleachingController = TextEditingController();
 
   int loading = 0;
   @override
@@ -56,31 +67,47 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: SingleChildScrollView(
         child: BlocBuilder(
-          bloc: context.watch<GetCleaningHourlyPriceCubit>(),
+          bloc: context.read<GetLaundryPriceCubit>(),
           builder: (context, state) {
-            if (state is GetCleaningHourlyPriceLoading) {
+            if (state is GetLaundryPriceLoading) {
+              debugPrint("Loading");
               return Center(
                   child: CircularProgressIndicator(
                 color: colorProject.primaryColor,
               ));
-            } else if (state is GetCleaningHourlyPriceSuccess) {
+            } else if (state is GetLaundryPriceSuccess) {
+              debugPrint("Success");
               var formKey = GlobalKey<FormState>();
               titleController.text = widget.title;
               nameController.text = widget.name;
               unitPriceController.text =
-                  state.cleaningHourlyPrice.unit_price.toString();
-              discountController.text =
-                  state.cleaningHourlyPrice.discount.toString();
+                  state.laundryPrice.unit_price.toString();
+              discountController.text = state.laundryPrice.discount.toString();
               bringToolController.text =
-                  state.cleaningHourlyPrice.bring_tools.toString();
+                  state.laundryPrice.bring_tools.toString();
               onPeakDateController.text =
-                  state.cleaningHourlyPrice.on_peak_date.toString();
+                  state.laundryPrice.onPeakDate.toString();
               onPeakHourController.text =
-                  state.cleaningHourlyPrice.on_peak_hour.toString();
+                  state.laundryPrice.onPeakHour.toString();
               onWeekendController.text =
-                  state.cleaningHourlyPrice.on_weekend.toString();
+                  state.laundryPrice.onWeekend.toString();
               onHolidayController.text =
-                  state.cleaningHourlyPrice.on_holiday.toString();
+                  state.laundryPrice.onHoliday.toString();
+              clothesController.text = state.laundryPrice.clothes.toString();
+              blanketController.text = state.laundryPrice.blanket.toString();
+              mosquitoNetController.text =
+                  state.laundryPrice.mosquito.toString();
+              netController.text = state.laundryPrice.net.toString();
+              draperyController.text = state.laundryPrice.drap.toString();
+              topperController.text = state.laundryPrice.topper.toString();
+              pillowController.text = state.laundryPrice.pillow.toString();
+              complexController.text = state.laundryPrice.comple.toString();
+              vietnamDressController.text =
+                  state.laundryPrice.vietnamDress.toString();
+              weedingDressController.text =
+                  state.laundryPrice.weedingDress.toString();
+              bleachingController.text =
+                  state.laundryPrice.bleaching.toString();
 
               return Form(
                 key: formKey,
@@ -88,13 +115,13 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SelectableText(
-                      "Chỉnh sửa giá dịch vụ giúp việc theo ca lẻ bên dưới",
+                      "Chỉnh sửa giá dịch vụ giặt ủi bên dưới",
                       style: TextStyle(
                         fontFamily: fontFamily,
                         fontSize: fontSize.medium,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     PriceLine(
                       title: "Tên dịch vụ",
                       price: titleController,
@@ -106,16 +133,52 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                       isNumeric: false,
                     ),
                     PriceLine(
-                      price: unitPriceController,
-                      title: "Đơn giá (theo giờ - VNĐ)",
+                      title: "Giá giặt ủi thông thường (bộ - VNĐ)",
+                      price: clothesController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt chăn/mềm (bộ - VNĐ)",
+                      price: blanketController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt trải giường (bộ - VNĐ)",
+                      price: topperController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt gối (cái - VNĐ)",
+                      price: pillowController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt drap giường (cái - VNĐ)",
+                      price: draperyController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt lưới chống muỗi (cái - VNĐ)",
+                      price: netController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt mùng chống muỗi (cái - VNĐ)",
+                      price: mosquitoNetController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt đồ com-lê (cái - VNĐ)",
+                      price: complexController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt áo dài Việt Nam (cái - VNĐ)",
+                      price: vietnamDressController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt áo cưới (cái - VNĐ)",
+                      price: weedingDressController,
+                    ),
+                    PriceLine(
+                      title: "Giá tẩy trắng (bộ - VNĐ)",
+                      price: bleachingController,
                     ),
                     PriceLine(
                       price: discountController,
                       title: "Giảm giá (%)",
-                    ),
-                    PriceLine(
-                      price: bringToolController,
-                      title: "Phụ thu mang dụng cụ (VNĐ)",
                     ),
                     PriceLine(
                       price: onPeakDateController,
@@ -146,7 +209,7 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                                     });
                                     try {
                                       await UpdateServiceController()
-                                          .updateCleaningHourly(
+                                          .updateLaundry(
                                         title: titleController.text,
                                         name: nameController.text,
                                         icon_url: widget.icon_url,
@@ -164,6 +227,28 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                                             onWeekendController.text)!,
                                         on_holiday: double.tryParse(
                                             onHolidayController.text)!,
+                                        clothes: double.tryParse(
+                                            clothesController.text)!,
+                                        blanket: double.tryParse(
+                                            blanketController.text)!,
+                                        mosquito: double.tryParse(
+                                            mosquitoNetController.text)!,
+                                        net: double.tryParse(
+                                            netController.text)!,
+                                        drap: double.tryParse(
+                                            draperyController.text)!,
+                                        topper: double.tryParse(
+                                            topperController.text)!,
+                                        pillow: double.tryParse(
+                                            pillowController.text)!,
+                                        comple: double.tryParse(
+                                            complexController.text)!,
+                                        vietnamDress: double.tryParse(
+                                            vietnamDressController.text)!,
+                                        weedingDress: double.tryParse(
+                                            weedingDressController.text)!,
+                                        bleaching: double.tryParse(
+                                            bleachingController.text)!,
                                       );
                                       setState(() {
                                         loading = 0;
@@ -241,9 +326,11 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                   ],
                 ),
               );
-            } else if (state is GetCleaningHourlyPriceFailure) {
+            } else if (state is GetLaundryPriceFailure) {
+              debugPrint("Failure");
               return Center(child: Text(state.error));
             }
+            debugPrint("Initial");
             return Container();
           },
         ),

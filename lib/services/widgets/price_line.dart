@@ -22,7 +22,7 @@ class _PriceLineState extends State<PriceLine> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.title),
+                Expanded(child: Text(widget.title)),
                 SizedBox(
                   width: 250,
                   child: TextFieldBasic(
@@ -43,7 +43,7 @@ class _PriceLineState extends State<PriceLine> {
             ),
           )
         : SizedBox(
-            height: 110,
+            height: 120,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

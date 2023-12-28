@@ -1,4 +1,4 @@
-class CleaningHourlyPrice {
+class CookingPrice {
   late String product_id;
   late double unit_price;
   late double discount;
@@ -8,7 +8,7 @@ class CleaningHourlyPrice {
   late double on_holiday;
   late double on_weekend;
 
-  CleaningHourlyPrice({
+  CookingPrice({
     this.product_id = "0",
     this.unit_price = 0,
     this.discount = 0,
@@ -19,7 +19,7 @@ class CleaningHourlyPrice {
     this.on_weekend = 0,
   });
 
-  CleaningHourlyPrice.fromJson(Map<String, dynamic> json) {
+  CookingPrice.fromJson(Map<String, dynamic> json) {
     product_id = json['product_id'];
     unit_price = json['unit_price'];
     discount = json['discount'];
@@ -40,4 +40,4 @@ class CleaningHourlyPrice {
     'on_holiday': on_holiday,
     'on_weekend': on_weekend
   };
-} 
+}

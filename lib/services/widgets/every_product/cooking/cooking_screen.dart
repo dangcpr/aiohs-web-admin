@@ -2,8 +2,8 @@
 
 import 'package:aiohs_web_admin/responsive/controllers/size.dart';
 import 'package:aiohs_web_admin/services/controllers/update.dart';
-import 'package:aiohs_web_admin/services/cubits/every_service/cleaning_hourly/cleaning_hourly_price_cubit.dart';
-import 'package:aiohs_web_admin/services/cubits/every_service/cleaning_hourly/cleaning_hourly_price_state.dart';
+import 'package:aiohs_web_admin/services/cubits/every_service/cooking/cooking_price_cubit.dart';
+import 'package:aiohs_web_admin/services/cubits/every_service/cooking/cooking_price_state.dart';
 import 'package:aiohs_web_admin/services/cubits/get_service/get_service_cubit.dart';
 import 'package:aiohs_web_admin/services/widgets/price_line.dart';
 import 'package:aiohs_web_admin/utilities/components/button_basic.dart';
@@ -12,8 +12,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CleaningHourlyPriceScreen extends StatefulWidget {
-  const CleaningHourlyPriceScreen(
+class CookingPriceScreen extends StatefulWidget {
+  const CookingPriceScreen(
       {super.key,
       required this.name,
       required this.title,
@@ -24,14 +24,14 @@ class CleaningHourlyPriceScreen extends StatefulWidget {
   final String icon_url;
 
   @override
-  State<CleaningHourlyPriceScreen> createState() => _CleaningHourlyPriceState();
+  State<CookingPriceScreen> createState() => _CookingPriceScreenState();
 }
 
-class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
+class _CookingPriceScreenState extends State<CookingPriceScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<GetCleaningHourlyPriceCubit>().getCleaningHourlyPrice();
+    context.read<GetCookingPriceCubit>().getCookingPrice();
   }
 
   TextEditingController titleController = TextEditingController();
@@ -48,7 +48,7 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Responsive.isMobile(context)
+      width:  Responsive.isMobile(context)
           ? MediaQuery.of(context).size.width / 1.2
           : Responsive.isTablet(context)
               ? MediaQuery.of(context).size.width / 1.7
@@ -56,31 +56,31 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: SingleChildScrollView(
         child: BlocBuilder(
-          bloc: context.watch<GetCleaningHourlyPriceCubit>(),
+          bloc: context.watch<GetCookingPriceCubit>(),
           builder: (context, state) {
-            if (state is GetCleaningHourlyPriceLoading) {
+            if (state is GetCookingPriceLoading) {
               return Center(
                   child: CircularProgressIndicator(
                 color: colorProject.primaryColor,
               ));
-            } else if (state is GetCleaningHourlyPriceSuccess) {
+            } else if (state is GetCookingPriceSuccess) {
               var formKey = GlobalKey<FormState>();
               titleController.text = widget.title;
               nameController.text = widget.name;
               unitPriceController.text =
-                  state.cleaningHourlyPrice.unit_price.toString();
+                  state.cookingPrice.unit_price.toString();
               discountController.text =
-                  state.cleaningHourlyPrice.discount.toString();
+                  state.cookingPrice.discount.toString();
               bringToolController.text =
-                  state.cleaningHourlyPrice.bring_tools.toString();
+                  state.cookingPrice.bring_tools.toString();
               onPeakDateController.text =
-                  state.cleaningHourlyPrice.on_peak_date.toString();
+                  state.cookingPrice.on_peak_date.toString();
               onPeakHourController.text =
-                  state.cleaningHourlyPrice.on_peak_hour.toString();
+                  state.cookingPrice.on_peak_hour.toString();
               onWeekendController.text =
-                  state.cleaningHourlyPrice.on_weekend.toString();
+                  state.cookingPrice.on_weekend.toString();
               onHolidayController.text =
-                  state.cleaningHourlyPrice.on_holiday.toString();
+                  state.cookingPrice.on_holiday.toString();
 
               return Form(
                 key: formKey,
@@ -88,13 +88,13 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SelectableText(
-                      "Chỉnh sửa giá dịch vụ giúp việc theo ca lẻ bên dưới",
+                      "Chỉnh sửa giá dịch vụ nấu ăn gia đình bên dưới",
                       style: TextStyle(
                         fontFamily: fontFamily,
                         fontSize: fontSize.medium,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                     PriceLine(
                       title: "Tên dịch vụ",
                       price: titleController,
@@ -107,15 +107,11 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                     ),
                     PriceLine(
                       price: unitPriceController,
-                      title: "Đơn giá (theo giờ - VNĐ)",
+                      title: "Đơn giá (trên người - VNĐ)",
                     ),
                     PriceLine(
                       price: discountController,
                       title: "Giảm giá (%)",
-                    ),
-                    PriceLine(
-                      price: bringToolController,
-                      title: "Phụ thu mang dụng cụ (VNĐ)",
                     ),
                     PriceLine(
                       price: onPeakDateController,
@@ -146,7 +142,7 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                                     });
                                     try {
                                       await UpdateServiceController()
-                                          .updateCleaningHourly(
+                                          .updateCooking(
                                         title: titleController.text,
                                         name: nameController.text,
                                         icon_url: widget.icon_url,
@@ -168,9 +164,7 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                                       setState(() {
                                         loading = 0;
                                       });
-                                      await context
-                                          .read<GetServiceCubit>()
-                                          .getService();
+                                      await context.read<GetServiceCubit>().getService();
                                       AwesomeDialog(
                                         dismissOnBackKeyPress: false,
                                         dismissOnTouchOutside: false,
@@ -241,7 +235,7 @@ class _CleaningHourlyPriceState extends State<CleaningHourlyPriceScreen> {
                   ],
                 ),
               );
-            } else if (state is GetCleaningHourlyPriceFailure) {
+            } else if (state is GetCookingPriceFailure) {
               return Center(child: Text(state.error));
             }
             return Container();
