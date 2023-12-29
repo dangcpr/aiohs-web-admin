@@ -14,6 +14,7 @@ class ServicesController {
   Future<List<Product>> getServices() async {
     try {
       var response = await dio.get('/admin/products');
+      await Future.delayed(Duration(milliseconds: 400));
       if (response.data['code'] == 0) {
         List<Product> services = [];
         services = (response.data['products'] as List)

@@ -41,6 +41,14 @@ class SideBar extends StatelessWidget {
               context.go('/main/service');
             },
           ),
+          DrawerListTile(
+            title: "Đăng ký giúp việc",
+            icon: Icons.app_registration,
+            press: () {
+              context.read<SideBarController>().updateIndex(2);
+              context.go('/main/maid-registration');
+            },
+          ),
         ],
       ),
     );

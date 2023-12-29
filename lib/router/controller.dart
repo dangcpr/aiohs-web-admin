@@ -28,6 +28,8 @@ final router = GoRouter(
           context.read<SideBarController>().updateIndex(0);
         else if (state.pathParameters['path'] == 'service')
           context.read<SideBarController>().updateIndex(1);
+        else if (state.pathParameters['path'] == 'maid-registration')
+          context.read<SideBarController>().updateIndex(2);
 
         return NoTransitionPage<void>(
           key: state.pageKey,

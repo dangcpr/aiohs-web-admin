@@ -19,14 +19,20 @@ class _ServiceScreenState extends State<ServicesScreen> {
     super.initState();
     context.read<GetServiceCubit>().getService();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Responsive.isMobile(context) ? SideBar() : null,
-      appBar: AppBar(
-        title: SelectableText("Quản lý dịch vụ", style: TextStyle(fontFamily: fontFamilyBold)),
+    return Title(
+      title: "Dịch vụ",
+      color: Colors.white,
+      child: Scaffold(
+        drawer: Responsive.isMobile(context) ? SideBar() : null,
+        appBar: AppBar(
+          title: SelectableText("Quản lý dịch vụ",
+              style: TextStyle(fontFamily: fontFamilyBold)),
+        ),
+        body: ServiceTable(),
       ),
-      body: ServiceTable(),
     );
   }
 }

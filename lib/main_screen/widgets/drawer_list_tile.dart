@@ -19,7 +19,7 @@ class DrawerListTile extends StatelessWidget {
     return ListTile(
       onTap: () async {
         if (Responsive.isMobile(context)) context.pop();
-        if (Responsive.isMobile(context)) await Future.delayed(Duration(milliseconds: 200));
+        await Future.delayed(Duration(milliseconds: 200));
         press();
       },
       leading: Icon(

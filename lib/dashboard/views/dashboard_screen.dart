@@ -13,12 +13,17 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Responsive.isMobile(context) ? SideBar() : null,
-      appBar: AppBar(
-        title: SelectableText("Trang chủ", style: TextStyle(fontFamily: fontFamilyBold)),
+    return Title(
+      title: "Trang chủ",
+      color: Colors.white,
+      child: Scaffold(
+        drawer: Responsive.isMobile(context) ? SideBar() : null,
+        appBar: AppBar(
+          title: SelectableText("Trang chủ",
+              style: TextStyle(fontFamily: fontFamilyBold)),
+        ),
+        body: SelectableText("Trang chủ"),
       ),
-      body: SelectableText("Trang chủ"),
     );
   }
 }
