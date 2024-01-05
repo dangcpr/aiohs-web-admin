@@ -26,10 +26,12 @@ final router = GoRouter(
       pageBuilder: (context, state) {
         if (state.pathParameters['path'] == 'dashboard')
           context.read<SideBarController>().updateIndex(0);
-        else if (state.pathParameters['path'] == 'service')
+        else if (state.pathParameters['path'] == 'user-manage')
           context.read<SideBarController>().updateIndex(1);
-        else if (state.pathParameters['path'] == 'maid-registration')
+        else if (state.pathParameters['path'] == 'service')
           context.read<SideBarController>().updateIndex(2);
+        else if (state.pathParameters['path'] == 'maid-registration')
+          context.read<SideBarController>().updateIndex(3);
 
         return NoTransitionPage<void>(
           key: state.pageKey,

@@ -1,5 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:aiohs_web_admin/maid_registration/controllers/maid.dart';
 import 'package:aiohs_web_admin/maid_registration/cubits/maid_registration/maid_registration_cubit.dart';
 import 'package:aiohs_web_admin/maid_registration/widgets/id_card.dart';
+import 'package:aiohs_web_admin/maid_registration/widgets/update_request.dart';
+import 'package:aiohs_web_admin/utilities/constants/function.dart';
 import 'package:aiohs_web_admin/utilities/constants/varible.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +72,10 @@ class _MaidRegistrationTableState extends State<MaidRegistrationTable> {
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Ảnh trước/sau của CMND/CCCD', style: TextStyle(fontFamily: fontFamilyBold, fontSize: fontSize.mediumLarger)),
+                              Text('Ảnh trước/sau của CMND/CCCD',
+                                  style: TextStyle(
+                                      fontFamily: fontFamilyBold,
+                                      fontSize: fontSize.mediumLarger)),
                               IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -92,12 +100,63 @@ class _MaidRegistrationTableState extends State<MaidRegistrationTable> {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialogWarning(
+                            context: context,
+                            message:
+                                "Bạn có chắc chắn muốn duyệt đơn giúp việc cho người dùng ${maidRegistration.user_code}?",
+                            btnOkOnPress: () async {
+                              showCircleProgress(context);
+                              try {
+                                await MaidRegistrationController()
+                                    .approveMaidRegistration(
+                                        maidRegistration.user_code.toString());
+                                Navigator.pop(context);
+                                showDialogSuccess(context,
+                                    "Duyệt đơn giúp việc thành công cho người dùng ${maidRegistration.user_code}");
+                                await maidRegistrationCubit.initState();
+                                await maidRegistrationCubit.registerMaid(
+                                    "MAID_REGISTRATION_STATUS_CREATED");
+                              } catch (e) {
+                                Navigator.pop(context);
+                                showDialogError(context, e.toString());
+                              }
+                            },
+                          );
+                        },
                         tooltip: "Duyệt đơn",
                         icon: Icon(Icons.check),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Lý do từ chối người dùng ${maidRegistration.user_code}',
+                                    style: TextStyle(
+                                      fontFamily: fontFamilyBold,
+                                      fontSize: fontSize.mediumLarger,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: Icon(Icons.close),
+                                  ),
+                                ],
+                              ),
+                              content: UpdateMaidRequest(
+                                id: maidRegistration.user_code.toString(),
+                              ),
+                            ),
+                          );
+                        },
                         tooltip: "Từ chối đơn",
                         icon: Icon(Icons.close),
                       ),

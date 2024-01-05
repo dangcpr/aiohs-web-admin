@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aiohs_web_admin/maid_registration/constants/constants.dart';
 import 'package:aiohs_web_admin/maid_registration/cubits/maid_registration/maid_registration_cubit.dart';
 import 'package:aiohs_web_admin/maid_registration/cubits/maid_registration/maid_registration_state.dart';
 import 'package:aiohs_web_admin/maid_registration/widgets/maid_regis_table.dart';
@@ -28,6 +29,7 @@ class _MaidRegistrationScreenState extends State<MaidRegistrationScreen> {
         context.read<MaidRegistrationCubit>().maidRegistrations.toString()));
   }
 
+  int _value = 0;
   @override
   Widget build(BuildContext context) {
     var maidRegistrationCubit = context.watch<MaidRegistrationCubit>();
@@ -40,25 +42,70 @@ class _MaidRegistrationScreenState extends State<MaidRegistrationScreen> {
           title: SelectableText("Đăng ký giúp việc",
               style: TextStyle(fontFamily: fontFamilyBold)),
         ),
-        body: Column(children: [
-          Expanded(child: MaidRegistrationTable()),
-          if (maidRegistrationCubit.state is MaidRegistrationLoading)
-            CircularProgressIndicator(
-              color: colorProject.primaryColor,
+        body: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 20),
+                // Expanded(
+                //   child: Container(
+                //     child: Text(
+                //       "Trạng thái đơn giúp việc",
+                //       style: TextStyle(
+                //         fontFamily: fontFamily,
+                //         fontSize: fontSize.mediumLarger,
+                //         color: colorProject.primaryColor,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                Wrap(
+                  spacing: 5.0,
+                  children: List<Widget>.generate(
+                    3,
+                    (int index) {
+                      return ChoiceChip(
+                        label: Text(statusMaidRes[index].name),
+                        selected: _value == index,
+                        selectedColor: MaterialStateColor.resolveWith(
+                            (states) =>
+                                colorProject.primaryColor.withOpacity(0.2)),
+                        onSelected: (bool selected) {
+                          context.read<MaidRegistrationCubit>().initState();
+                          context
+                              .read<MaidRegistrationCubit>()
+                              .registerMaid(statusMaidRes[index].code);
+                          setState(() {
+                            _value = selected ? index : 0;
+                          });
+                        },
+                      );
+                    },
+                  ).toList(),
+                ),
+                SizedBox(width: 20),
+              ],
             ),
-          if(maidRegistrationCubit.next != "0")
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: colorProject.primaryColor,
+            Expanded(child: MaidRegistrationTable()),
+            if (maidRegistrationCubit.state is MaidRegistrationLoading)
+              CircularProgressIndicator(
+                color: colorProject.primaryColor,
               ),
-              onPressed: () {
-                maidRegistrationCubit.maidRegistrations;
-              },
-              child: Text("Tải thêm dữ liệu",
-                  style: TextStyle(color: Colors.white)),
-            ),
-          SizedBox(height: 30,)
-        ]),
+            if (maidRegistrationCubit.next != "0")
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: colorProject.primaryColor,
+                ),
+                onPressed: () {
+                  maidRegistrationCubit.maidRegistrations;
+                },
+                child: Text("Tải thêm dữ liệu",
+                    style: TextStyle(color: Colors.white)),
+              ),
+            SizedBox(height: 30)
+          ],
+        ),
       ),
     );
   }

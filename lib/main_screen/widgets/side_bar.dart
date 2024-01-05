@@ -34,6 +34,14 @@ class SideBar extends StatelessWidget {
             },
           ),
           DrawerListTile(
+            title: "Quản lý người dùng",
+            icon: Icons.person,
+            press: () {
+              context.read<SideBarController>().updateIndex(1);
+              context.go('/main/user-manage');
+            },
+          ),
+          DrawerListTile(
             title: "Dịch vụ",
             icon: Icons.cleaning_services,
             press: () {

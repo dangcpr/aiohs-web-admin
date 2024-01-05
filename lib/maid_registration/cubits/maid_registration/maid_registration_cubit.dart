@@ -25,8 +25,8 @@ class MaidRegistrationCubit extends Cubit<MaidRegistrationState> {
     }
   }
 
-  void initState() {
-    maidRegistrations = [];
+  Future<void> initState() async {
+    maidRegistrations.clear();
     next = "0";
   }
 }
