@@ -1,7 +1,10 @@
+import 'package:aiohs_web_admin/area_booking/cubits/get_area_booking/get_area_booking_cubit.dart';
+import 'package:aiohs_web_admin/holiday/cubits/get_holiday/get_holiday_cubit.dart';
 import 'package:aiohs_web_admin/login/cubits/user_cubit.dart';
 import 'package:aiohs_web_admin/maid_registration/cubits/maid_registration/maid_registration_cubit.dart';
 import 'package:aiohs_web_admin/main_screen/cubits/page_number.dart';
 import 'package:aiohs_web_admin/services/cubits/get_service/get_service_cubit.dart';
+import 'package:aiohs_web_admin/user_manage/cubits/get_user/get_user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 var listProvider = [
@@ -16,5 +19,14 @@ var listProvider = [
   ),
   BlocProvider<MaidRegistrationCubit>(
     create: (_) => MaidRegistrationCubit(),
+  ),
+  BlocProvider<GetListUserCubit>(
+    create: (_) => GetListUserCubit(),
+  ),
+  BlocProvider<GetHolidaysCubit>(
+    create: (_) => GetHolidaysCubit(),
+  ),
+  BlocProvider<GetAreaBookingCubit>(
+    create: (_) => GetAreaBookingCubit(),
   )
 ];

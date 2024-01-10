@@ -103,7 +103,7 @@ class _MaidRegistrationScreenState extends State<MaidRegistrationScreen> {
                 child: Text("Tải thêm dữ liệu",
                     style: TextStyle(color: Colors.white)),
               ),
-            SizedBox(height: 30)
+            SizedBox(height: 15)
           ],
         ),
       ),

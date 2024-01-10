@@ -36,13 +36,14 @@ class MaidRegistrationController {
 
   Future<void> approveMaidRegistration(String user_code) async {
     try {
-      var response = await dio.post('/admin/maid-registration/$user_code/reviews', data: {
+      var response =
+          await dio.post('/admin/maid-registration/$user_code/reviews', data: {
         'action': 'ACTION_APPROVE',
       });
       await Future.delayed(Duration(milliseconds: 400));
       if (response.data['code'] == 0) {
         // Gửi thông báo ở đây
-        
+
         return;
       } else {
         throw response.data['message'];
@@ -54,16 +55,15 @@ class MaidRegistrationController {
     }
   }
 
-    Future<void> upateMaidRegistration(String user_code, String reason) async {
+  Future<void> upateMaidRegistration(String user_code, String reason) async {
     try {
-      var response = await dio.post('/admin/maid-registration/$user_code/reviews', data: {
-        'action': 'ACTION_REQUEST_UPDATE',
-        'reason': reason
-      });
+      var response = await dio.post(
+          '/admin/maid-registration/$user_code/reviews',
+          data: {'action': 'ACTION_REQUEST_UPDATE', 'reason': reason});
       await Future.delayed(Duration(milliseconds: 400));
       if (response.data['code'] == 0) {
         // Gửi thông báo ở đây
-        
+
         return;
       } else {
         throw response.data['message'];

@@ -43,6 +43,8 @@ dependencies:
   awesome_dialog: ^3.1.0
   url_strategy: ^0.2.0
   data_table_2: ^2.5.9
+  month_picker_dialog: ^2.4.0
+  intl: ^0.18.1
 
 dev_dependencies:
   # flutter_launcher_icons: ^0.13.1

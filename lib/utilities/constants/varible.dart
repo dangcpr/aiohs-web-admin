@@ -7,6 +7,7 @@ const fontFamily = 'Poppins-Regular';
 const fontFamilyBold = 'Poppins-ExtraBold';
 const logoFull = 'assets/images/logo_full.png';
 const debugServer = 'http://192.168.84.128:9000';
+const from_date_default = '2023-10-10';
 final dio = Dio(
   BaseOptions(
     baseUrl: debugServer,

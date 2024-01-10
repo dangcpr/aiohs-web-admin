@@ -12,17 +12,17 @@ class User {
   late String? updated_at;
 
   User({
-    this.code,
-    this.full_name,
-    this.email,
-    this.phone_number,
-    this.role,
-    this.default_address,
-    this.status,
-    this.status_display,
-    this.avatar_url,
-    this.created_at,
-    this.updated_at,
+    this.code = '',
+    this.full_name = '',
+    this.email = '',
+    this.phone_number = '',
+    this.role = '',
+    this.default_address = '',
+    this.status = '',
+    this.status_display = '',
+    this.avatar_url  = '',
+    this.created_at = '',
+    this.updated_at = '',
   });
 
   User.fromJson(Map<String, dynamic> json) {

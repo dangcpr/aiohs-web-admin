@@ -6,13 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
-  User user = User();
-
   Future<void> login(String email, String password) async {
     emit(LoginLoading());
     try {
-      var user = await LoginController().login(email, password);
-      user = this.user;
+      User user = await LoginController().login(email, password);
       emit(LoginSuccess(user: user));
     } catch (e) {
       emit(LoginFailed(error: e.toString()));

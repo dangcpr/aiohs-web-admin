@@ -1,3 +1,4 @@
+import 'package:aiohs_web_admin/login/cubits/user_cubit.dart';
 import 'package:aiohs_web_admin/main_screen/cubits/page_number.dart';
 import 'package:aiohs_web_admin/main_screen/widgets/drawer_list_tile.dart';
 import 'package:aiohs_web_admin/utilities/constants/varible.dart';
@@ -25,14 +26,14 @@ class SideBar extends StatelessWidget {
           DrawerHeader(
             child: Image.asset("assets/images/logo_full.png"),
           ),
-          DrawerListTile(
-            title: "Trang chủ",
-            icon: Icons.dashboard,
-            press: () {
-              context.read<SideBarController>().updateIndex(0);
-              context.go('/main/dashboard');
-            },
-          ),
+          // DrawerListTile(
+          //   title: "Trang chủ",
+          //   icon: Icons.dashboard,
+          //   press: () {
+          //     context.read<SideBarController>().updateIndex(0);
+          //     context.go('/main/dashboard');
+          //   },
+          // ),
           DrawerListTile(
             title: "Quản lý người dùng",
             icon: Icons.person,
@@ -45,18 +46,75 @@ class SideBar extends StatelessWidget {
             title: "Dịch vụ",
             icon: Icons.cleaning_services,
             press: () {
-              context.read<SideBarController>().updateIndex(1);
+              context.read<SideBarController>().updateIndex(2);
               context.go('/main/service');
+            },
+          ),
+          DrawerListTile(
+            title: "Ngày lễ",
+            icon: Icons.calendar_month,
+            press: () {
+              context.read<SideBarController>().updateIndex(3);
+              context.go('/main/holiday');
             },
           ),
           DrawerListTile(
             title: "Đăng ký giúp việc",
             icon: Icons.app_registration,
             press: () {
-              context.read<SideBarController>().updateIndex(2);
+              context.read<SideBarController>().updateIndex(4);
               context.go('/main/maid-registration');
             },
           ),
+          DrawerListTile(
+            title: "Tin thuê chỗ",
+            icon: Icons.home_work,
+            press: () {
+              context.read<SideBarController>().updateIndex(5);
+              context.go('/main/area-booking');
+            },
+          ),
+          SizedBox(height: 10),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                context.read<UserCubit>().state.avatar_url != ""
+                    ? CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(
+                            context.read<UserCubit>().state.avatar_url!),
+                      )
+                    : CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage(
+                          "assets/images/avatar.png",
+                        ),
+                      ),
+                SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Xin chào, ",
+                      style: TextStyle(
+                        fontSize: fontSize.mediumLarger,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      context.read<UserCubit>().state.email!,
+                      style: TextStyle(
+                        fontSize: fontSize.mediumLarger,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

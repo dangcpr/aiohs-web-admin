@@ -1,5 +1,6 @@
 import 'package:aiohs_web_admin/login/cubits/login/login_cubit.dart';
 import 'package:aiohs_web_admin/login/cubits/login/login_state.dart';
+import 'package:aiohs_web_admin/login/cubits/user_cubit.dart';
 import 'package:aiohs_web_admin/login/widgets/login_widget.dart';
 import 'package:aiohs_web_admin/responsive/controllers/size.dart';
 import 'package:aiohs_web_admin/utilities/constants/varible.dart';
@@ -23,6 +24,9 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         if (state is LoginSuccess) {
           Navigator.pop(context);
+          context
+              .read<UserCubit>()
+              .setUser(state.user);
           context.go('/main');
           return;
         }

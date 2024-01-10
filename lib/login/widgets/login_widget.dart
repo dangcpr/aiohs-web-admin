@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:aiohs_web_admin/login/cubits/login/login_cubit.dart';
-import 'package:aiohs_web_admin/login/cubits/user_cubit.dart';
 import 'package:aiohs_web_admin/responsive/controllers/size.dart';
 import 'package:aiohs_web_admin/utilities/components/text_field.dart';
 import 'package:aiohs_web_admin/utilities/constants/varible.dart';
@@ -103,13 +102,12 @@ class LoginWidget extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: colorProject.primaryColor,
                       ),
-                      onPressed: () async {
+                      onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           try {
-                            LoginCubit userCubit = context.read<LoginCubit>();
-                            await userCubit.login(
+                            LoginCubit loginCubit = context.read<LoginCubit>();
+                            loginCubit.login(
                                 emailController.text, passwordController.text);
-                            context.read<UserCubit>().setUser(userCubit.user);
                             context.go('/main');
                           } catch (e) {
                             print(e);

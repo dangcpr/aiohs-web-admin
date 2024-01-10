@@ -28,13 +28,16 @@ class LoginController {
         await storage.write(key: 'token', value: token);
         debugPrint(await storage.read(key: 'token'));
 
-        User user = User.fromJson(response.data['data']);
+        User user = User.fromJson(response.data['user']);
+        debugPrint(user.toJson().toString());
         return user;
       } else {
         throw response.data['message'];
       }
     } on DioException catch (e) {
       throw handleError(e);
+    } catch (e) {
+      throw e.toString();
     }
   }
 }
