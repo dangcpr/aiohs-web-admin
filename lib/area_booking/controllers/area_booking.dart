@@ -12,6 +12,7 @@ class AreaBookingController {
     String? status,
     String? user_code,
     String? type,
+    String? code,
   }) async {
     try {
       DateTime now = DateTime.now();
@@ -20,6 +21,7 @@ class AreaBookingController {
       status = status == '' || status == null ? 'AREA_BOOKING_STATUS_ACTIVE' : status;
       user_code = user_code == '' ? null : user_code;
       type = type == '' || type == null ? 'AREA_BOOKING_TYPE_RENT' : type;
+      code = code == '' ? null : code;
 
       debugPrint(to_date);
 
@@ -31,6 +33,7 @@ class AreaBookingController {
           'to_date': to_date,
           'status': status,
           'user_code': user_code,
+          'code': code,
           'type': type,
         }
       );
@@ -58,8 +61,8 @@ class AreaBookingController {
 
   Future<void> cancelAreaBooking(String code, String reason) async {
     try {
-      final response = await dio.get('/admin/area-booking/$code/close', 
-        queryParameters: {
+      final response = await dio.post('/admin/area-booking/$code/close', 
+        data: {
           'reason': reason,
         }
       );

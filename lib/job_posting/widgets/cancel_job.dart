@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:aiohs_web_admin/area_booking/controllers/area_booking.dart';
-import 'package:aiohs_web_admin/area_booking/cubits/get_area_booking/get_area_booking_cubit.dart';
-import 'package:aiohs_web_admin/area_booking/models/area_booking.dart';
+import 'package:aiohs_web_admin/job_posting/controllers/job_posting.dart';
+import 'package:aiohs_web_admin/job_posting/cubits/get_job_posting/job_posting_cubit.dart';
+import 'package:aiohs_web_admin/job_posting/models/job_posting.dart';
 import 'package:aiohs_web_admin/responsive/controllers/size.dart';
 import 'package:aiohs_web_admin/utilities/components/button_basic.dart';
 import 'package:aiohs_web_admin/utilities/components/filter_line.dart';
@@ -10,16 +10,16 @@ import 'package:aiohs_web_admin/utilities/constants/function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CancelAreaBooking extends StatefulWidget {
-  const CancelAreaBooking({super.key, required this.areaBooking});
+class CancelJob extends StatefulWidget {
+  const CancelJob({super.key, required this.jobPosting});
 
-  final AreaBooking areaBooking;
+  final JobPosting jobPosting;
 
   @override
-  State<CancelAreaBooking> createState() => _CancelAreaBookingState();
+  State<CancelJob> createState() => _CancelJobState();
 }
 
-class _CancelAreaBookingState extends State<CancelAreaBooking> {
+class _CancelJobState extends State<CancelJob> {
   TextEditingController reasonController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
@@ -45,6 +45,7 @@ class _CancelAreaBookingState extends State<CancelAreaBooking> {
                 return null;
               },
             ),
+            SizedBox(height: 10),
             Container(
               width: double.infinity,
               child: ButtonBasic(
@@ -54,19 +55,19 @@ class _CancelAreaBookingState extends State<CancelAreaBooking> {
                     showDialogWarning(
                       context: context,
                       message:
-                          "Bạn có chắc chắn hủy bài viết ${widget.areaBooking.code} ?",
+                          "Bạn có chắc chắn hủy bài viết ${widget.jobPosting.code} ?",
                       btnOkOnPress: () async {
                         showCircleProgress(context);
                         try {
-                          await AreaBookingController().cancelAreaBooking(
-                              widget.areaBooking.code, reasonController.text);
+                          await JobPostingController().cancelJob(
+                              widget.jobPosting.code, reasonController.text);
                           Navigator.pop(context);
                           showDialogSuccess(context, "Hủy bài viết thành công",
                               canPop: true);
-                          context.read<GetAreaBookingCubit>().initState();
+                          context.read<GetJobPostingCubit>().initState();
                           await context
-                              .read<GetAreaBookingCubit>()
-                              .getAreaBooking();
+                              .read<GetJobPostingCubit>()
+                              .getJobPosting();
                         } catch (e) {
                           Navigator.pop(context);
                           showDialogError(context, e.toString());

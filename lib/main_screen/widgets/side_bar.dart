@@ -67,11 +67,27 @@ class SideBar extends StatelessWidget {
             },
           ),
           DrawerListTile(
+            title: "Quản lý giúp việc",
+            icon: Icons.workspaces,
+            press: () {
+              context.read<SideBarController>().updateIndex(5);
+              context.go('/main/maid-manage');
+            },
+          ),
+          DrawerListTile(
             title: "Tin thuê chỗ",
             icon: Icons.home_work,
             press: () {
-              context.read<SideBarController>().updateIndex(5);
+              context.read<SideBarController>().updateIndex(6);
               context.go('/main/area-booking');
+            },
+          ),
+          DrawerListTile(
+            title: "Tin tuyển giúp việc",
+            icon: Icons.work,
+            press: () {
+              context.read<SideBarController>().updateIndex(7);
+              context.go('/main/job-posting');
             },
           ),
           SizedBox(height: 10),

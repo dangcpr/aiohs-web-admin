@@ -1,5 +1,6 @@
 import 'package:aiohs_web_admin/area_booking/cubits/get_area_booking/get_area_booking_cubit.dart';
 import 'package:aiohs_web_admin/holiday/cubits/get_holiday/get_holiday_cubit.dart';
+import 'package:aiohs_web_admin/job_posting/cubits/get_job_posting/job_posting_cubit.dart';
 import 'package:aiohs_web_admin/login/cubits/user_cubit.dart';
 import 'package:aiohs_web_admin/maid_registration/cubits/maid_registration/maid_registration_cubit.dart';
 import 'package:aiohs_web_admin/main_screen/cubits/page_number.dart';
@@ -28,5 +29,8 @@ var listProvider = [
   ),
   BlocProvider<GetAreaBookingCubit>(
     create: (_) => GetAreaBookingCubit(),
-  )
+  ),
+  BlocProvider<GetJobPostingCubit>(
+    create: (_) => GetJobPostingCubit(),
+  ),
 ];

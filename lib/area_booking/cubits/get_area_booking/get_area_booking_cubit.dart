@@ -14,6 +14,7 @@ class GetAreaBookingCubit extends Cubit<GetAreaBookingState> {
     String? to_date,
     String? status,
     String? user_code,
+    String? code,
     String? type,
   }) async {
     emit(GetAreaBookingLoading());
@@ -28,6 +29,7 @@ class GetAreaBookingCubit extends Cubit<GetAreaBookingState> {
         to_date: to_date,
         status: status,
         user_code: user_code,
+        code: code,
         type: type,
       );
       areaBookingList.addAll(areaBookingResult.areaBookings);

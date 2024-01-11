@@ -1,6 +1,5 @@
-import 'package:aiohs_web_admin/area_booking/constants/status_area.dart';
-import 'package:aiohs_web_admin/area_booking/constants/type_area.dart';
-import 'package:aiohs_web_admin/area_booking/cubits/get_area_booking/get_area_booking_cubit.dart';
+import 'package:aiohs_web_admin/job_posting/constants/status_job.dart';
+import 'package:aiohs_web_admin/job_posting/cubits/get_job_posting/job_posting_cubit.dart';
 import 'package:aiohs_web_admin/responsive/controllers/size.dart';
 import 'package:aiohs_web_admin/utilities/components/button_basic.dart';
 import 'package:aiohs_web_admin/utilities/components/filter_line.dart';
@@ -8,14 +7,14 @@ import 'package:aiohs_web_admin/utilities/constants/varible.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FilterAreaBooking extends StatefulWidget {
-  const FilterAreaBooking({super.key});
+class FilterJobs extends StatefulWidget {
+  const FilterJobs({super.key});
 
   @override
-  State<FilterAreaBooking> createState() => _FilterAreaBookingState();
+  State<FilterJobs> createState() => _FilterJobsState();
 }
 
-class _FilterAreaBookingState extends State<FilterAreaBooking> {
+class _FilterJobsState extends State<FilterJobs> {
   TextEditingController searchUserController = TextEditingController();
   TextEditingController searchCodeController = TextEditingController();
   TextEditingController fromDateController = TextEditingController();
@@ -26,7 +25,6 @@ class _FilterAreaBookingState extends State<FilterAreaBooking> {
   DateTime toDate = DateTime.now();
 
   int _value1 = 0;
-  int _value2 = 0;
 
   @override
   void initState() {
@@ -52,7 +50,7 @@ class _FilterAreaBookingState extends State<FilterAreaBooking> {
             info: searchUserController,
           ),
           FilterLine(
-            title: "Tìm kiếm theo mã bài đăng",
+            title: "Tìm kiếm theo mã bài viết",
             info: searchCodeController,
           ),
           FilterLine(
@@ -118,21 +116,19 @@ class _FilterAreaBookingState extends State<FilterAreaBooking> {
             },
           ),
           statusChoice(),
-          typeChoice(),
           Container(
             width: double.infinity,
             child: ButtonBasic(
               text: "Lọc",
               onPressed: () async {
                 Navigator.pop(context);
-                context.read<GetAreaBookingCubit>().initState();
-                await context.read<GetAreaBookingCubit>().getAreaBooking(
+                context.read<GetJobPostingCubit>().initState();
+                await context.read<GetJobPostingCubit>().getJobPosting(
                       from_date: fromDateController.text,
                       to_date: toDateController.text,
                       status: status,
                       user_code: searchUserController.text,
                       code: searchCodeController.text,
-                      type: type,
                     );
               },
             ),
@@ -153,17 +149,17 @@ class _FilterAreaBookingState extends State<FilterAreaBooking> {
                 Wrap(
                   spacing: 6.0,
                   children: List<Widget>.generate(
-                    statusAreas.length,
+                    statusJobs.length,
                     (int index) {
                       return ChoiceChip(
-                        label: Text(statusAreas[index].status_display),
+                        label: Text(statusJobs[index].name),
                         selected: _value1 == index,
                         selectedColor: MaterialStateColor.resolveWith(
                             (states) =>
                                 colorProject.primaryColor.withOpacity(0.4)),
                         onSelected: (bool selected) {
                           setState(() {
-                            status = statusAreas[index].status;
+                            status = statusJobs[index].status;
                             debugPrint(status);
                             _value1 = selected ? index : 0;
                           });
@@ -189,89 +185,18 @@ class _FilterAreaBookingState extends State<FilterAreaBooking> {
                     runSpacing: 6.0,
                     //alignment: WrapAlignment.spaceBetween,
                     children: List<Widget>.generate(
-                      statusAreas.length,
+                      statusJobs.length,
                       (int index) {
                         return ChoiceChip(
-                          label: Text(statusAreas[index].status_display),
+                          label: Text(statusJobs[index].name),
                           selected: _value1 == index,
                           selectedColor: MaterialStateColor.resolveWith(
                               (states) =>
                                   colorProject.primaryColor.withOpacity(0.4)),
                           onSelected: (bool selected) {
                             setState(() {
-                              status = statusAreas[index].status;
+                              status = statusJobs[index].status;
                               _value1 = selected ? index : 0;
-                            });
-                          },
-                        );
-                      },
-                    ).toList(),
-                  ),
-                ),
-              ],
-            ),
-          );
-  }
-
-  Widget typeChoice() {
-    return !Responsive.isMobile(context)
-        ? SizedBox(
-            height: 85,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(child: SelectableText("Loại bài viết")),
-                Wrap(
-                  spacing: 6.0,
-                  children: List<Widget>.generate(
-                    typeAreas.length,
-                    (int index) {
-                      return ChoiceChip(
-                        label: Text(typeAreas[index].type_display),
-                        selected: _value2 == index,
-                        selectedColor: MaterialStateColor.resolveWith(
-                            (states) =>
-                                colorProject.primaryColor.withOpacity(0.4)),
-                        onSelected: (bool selected) {
-                          setState(() {
-                            type = typeAreas[index].type;
-                            debugPrint(type);
-                            _value2 = selected ? index : 0;
-                          });
-                        },
-                      );
-                    },
-                  ).toList(),
-                )
-              ],
-            ),
-          )
-        : SizedBox(
-            height: 100,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SelectableText("Vai trò"),
-                SizedBox(height: 15),
-                Container(
-                  width: double.infinity,
-                  child: Wrap(
-                    spacing: 16.0,
-                    runSpacing: 6.0,
-                    //alignment: WrapAlignment.spaceBetween,
-                    children: List<Widget>.generate(
-                      typeAreas.length,
-                      (int index) {
-                        return ChoiceChip(
-                          label: Text(typeAreas[index].type_display),
-                          selected: _value2 == index,
-                          selectedColor: MaterialStateColor.resolveWith(
-                              (states) =>
-                                  colorProject.primaryColor.withOpacity(0.4)),
-                          onSelected: (bool selected) {
-                            setState(() {
-                              type = typeAreas[index].type;
-                              _value2 = selected ? index : 0;
                             });
                           },
                         );
