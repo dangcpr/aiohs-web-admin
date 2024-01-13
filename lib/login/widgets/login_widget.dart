@@ -17,9 +17,9 @@ class LoginWidget extends StatelessWidget {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     final _formKey = GlobalKey<FormState>();
     TextEditingController emailController =
-        TextEditingController(text: "admin1@gmail.com");
+        TextEditingController();
     TextEditingController passwordController =
-        TextEditingController(text: "123456");
+        TextEditingController();
 
     return Container(
       width: Responsive.isMobile(context)
