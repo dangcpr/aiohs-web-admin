@@ -34,7 +34,7 @@ class ServicesController {
 
   Future<CleaningHourlyPrice> getCleaningHourlyPrice() async {
     try {
-      var response = await dio.get('/user/products/CLEAN_ON_DEMAND');
+      var response = await dio.get('/admin/products/CLEAN_ON_DEMAND');
       if (response.data['code'] == 0) {
         CleaningHourlyPrice cleaningHourlyPrice =
             CleaningHourlyPrice.fromJson(response.data['price']);
@@ -51,7 +51,7 @@ class ServicesController {
 
   Future<CleaningSubPrice> getCleaningSubPrice() async {
     try {
-      var response = await dio.get('/user/products/CLEAN_SUBSCRIPTION');
+      var response = await dio.get('/admin/products/CLEAN_SUBSCRIPTION');
       if (response.data['code'] == 0) {
         CleaningSubPrice cleaningSubPrice =
             CleaningSubPrice.fromJson(response.data['price']);
@@ -68,7 +68,7 @@ class ServicesController {
 
   Future<ShoppingPrice> getShoppingPrice() async {
     try {
-      var response = await dio.get('/user/products/GROCERY_ASSISTANT');
+      var response = await dio.get('/admin/products/GROCERY_ASSISTANT');
       if (response.data['code'] == 0) {
         ShoppingPrice shoppingPrice =
             ShoppingPrice.fromJson(response.data['price']);
@@ -85,7 +85,7 @@ class ServicesController {
 
   Future<CookingPrice> getCookingPrice() async {
     try {
-      var response = await dio.get('/user/products/HOME_COOKING');
+      var response = await dio.get('/admin/products/HOME_COOKING');
       if (response.data['code'] == 0) {
         CookingPrice cookingPrice =
             CookingPrice.fromJson(response.data['price']);
@@ -102,7 +102,7 @@ class ServicesController {
 
   Future<LaundryPrice> getLaundryPrice() async {
     try {
-      final response = await dio.get('/user/products/LAUNDRY');
+      final response = await dio.get('/admin/products/LAUNDRY');
 
       if (response.data['code'] == 0) {
         LaundryPrice laundryPrice =
@@ -121,7 +121,7 @@ class ServicesController {
 
   Future<AirCondCleanPrice> getAirCondCleanPrice() async {
     try {
-      final response = await dio.get('/user/products/AIR_CONDITIONING_CLEAN');
+      final response = await dio.get('/admin/products/AIR_CONDITIONING_CLEAN');
 
       if (response.data['code'] == 0) {
         AirCondCleanPrice airCondCleanPrice =

@@ -54,6 +54,17 @@ class _LaundryPriceScreenState extends State<LaundryPriceScreen> {
   TextEditingController vietnamDressController = TextEditingController();
   TextEditingController weedingDressController = TextEditingController();
   TextEditingController bleachingController = TextEditingController();
+  TextEditingController clothesController_kg = TextEditingController();
+  TextEditingController blanketController_kg = TextEditingController();
+  TextEditingController mosquitoNetController_kg = TextEditingController();
+  TextEditingController netController_kg = TextEditingController();
+  TextEditingController draperyController_kg = TextEditingController();
+  TextEditingController topperController_kg = TextEditingController();
+  TextEditingController pillowController_kg = TextEditingController();
+  TextEditingController complexController_kg = TextEditingController();
+  TextEditingController vietnamDressController_kg = TextEditingController();
+  TextEditingController weedingDressController_kg = TextEditingController();
+  TextEditingController bleachingController_kg = TextEditingController();
 
   int loading = 0;
   @override
@@ -108,6 +119,24 @@ class _LaundryPriceScreenState extends State<LaundryPriceScreen> {
                   state.laundryPrice.weedingDress.toString();
               bleachingController.text =
                   state.laundryPrice.bleaching.toString();
+              clothesController_kg.text =
+                  state.laundryPrice.clothes_k.toString();
+              blanketController_kg.text =
+                  state.laundryPrice.blanket_k.toString();
+              mosquitoNetController_kg.text =
+                  state.laundryPrice.mosquito_k.toString();
+              netController_kg.text = state.laundryPrice.net_k.toString();
+              draperyController_kg.text = state.laundryPrice.drap_k.toString();
+              topperController_kg.text = state.laundryPrice.topper_k.toString();
+              pillowController_kg.text = state.laundryPrice.pillow_k.toString();
+              complexController_kg.text =
+                  state.laundryPrice.comple_k.toString();
+              vietnamDressController_kg.text =
+                  state.laundryPrice.vietnamDress_k.toString();
+              weedingDressController_kg.text =
+                  state.laundryPrice.weedingDress_k.toString();
+              bleachingController_kg.text =
+                  state.laundryPrice.bleaching_k.toString();
 
               return Form(
                 key: formKey,
@@ -175,6 +204,50 @@ class _LaundryPriceScreenState extends State<LaundryPriceScreen> {
                     PriceLine(
                       title: "Giá tẩy trắng (bộ - VNĐ)",
                       price: bleachingController,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt ủi thông thường (kg - VNĐ)",
+                      price: clothesController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt chăn/mềm (kg - VNĐ)",
+                      price: blanketController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt trải giường (kg - VNĐ)",
+                      price: topperController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt gối (kg - VNĐ)",
+                      price: pillowController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt drap giường (kg - VNĐ)",
+                      price: draperyController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt lưới chống muỗi (kg - VNĐ)",
+                      price: netController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt mùng chống muỗi (kg - VNĐ)",
+                      price: mosquitoNetController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt đồ com-lê (kg - VNĐ)",
+                      price: complexController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt áo dài Việt Nam (kg - VNĐ)",
+                      price: vietnamDressController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá giặt áo cưới (kg - VNĐ)",
+                      price: weedingDressController_kg,
+                    ),
+                    PriceLine(
+                      title: "Giá tẩy trắng (kg - VNĐ)",
+                      price: bleachingController_kg,
                     ),
                     PriceLine(
                       price: discountController,
@@ -249,6 +322,28 @@ class _LaundryPriceScreenState extends State<LaundryPriceScreen> {
                                             weedingDressController.text)!,
                                         bleaching: double.tryParse(
                                             bleachingController.text)!,
+                                        clothes_kg: double.tryParse(
+                                            clothesController_kg.text)!,
+                                        blanket_kg: double.tryParse(
+                                            blanketController_kg.text)!,
+                                        mosquito_kg: double.tryParse(
+                                            mosquitoNetController_kg.text)!,
+                                        net_kg: double.tryParse(
+                                            netController_kg.text)!,
+                                        drap_kg: double.tryParse( 
+                                            draperyController_kg.text)!,
+                                        topper_kg: double.tryParse( 
+                                            topperController_kg.text)!,
+                                        pillow_kg: double.tryParse( 
+                                            pillowController_kg.text)!,
+                                        comple_kg: double.tryParse( 
+                                            complexController_kg.text)!,
+                                        vietnamDress_kg: double.tryParse( 
+                                            vietnamDressController_kg.text)!,
+                                        weedingDress_kg: double.tryParse( 
+                                            weedingDressController_kg.text)!,
+                                        bleaching_kg: double.tryParse(
+                                            bleachingController_kg.text)!,
                                       );
                                       setState(() {
                                         loading = 0;

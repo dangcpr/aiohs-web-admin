@@ -1,23 +1,34 @@
 class LaundryPrice {
   late String product_id;
-  late double clothes;
-  late double blanket;
-  late double mosquito;
-  late double net;
-  late double drap;
-  late double topper;
-  late double pillow;
-  late double comple;
-  late double vietnamDress;
-  late double weedingDress;
-  late double bleaching;
-  late double onPeakDate;
-  late double onPeakHour;
-  late double onHoliday;
-  late double onWeekend;
-  late double discount;
-  late double unit_price;
-  late double bring_tools;
+  late num clothes;
+  late num blanket;
+  late num mosquito;
+  late num net;
+  late num drap;
+  late num topper;
+  late num pillow;
+  late num comple;
+  late num vietnamDress;
+  late num weedingDress;
+  late num bleaching;
+  late num clothes_k;
+  late num blanket_k;
+  late num mosquito_k;
+  late num net_k;
+  late num drap_k;
+  late num topper_k;
+  late num pillow_k;
+  late num comple_k;
+  late num vietnamDress_k;
+  late num weedingDress_k;
+  late num bleaching_k;
+  late num onPeakDate;
+  late num onPeakHour;
+  late num onHoliday;
+  late num onWeekend;
+  late num discount;
+  late num unit_price;
+  late num bring_tools;
 
   LaundryPrice({
     this.product_id = "0",
@@ -42,17 +53,39 @@ class LaundryPrice {
   });
 
   LaundryPrice.fromJson(Map<String, dynamic> json) {
-    clothes = json['laundry_price']['normal_cleaning']['Clothes'];
-    blanket = json['laundry_price']['normal_cleaning']['Blanket'];
-    mosquito = json['laundry_price']['normal_cleaning']['Mosquito'];
-    net = json['laundry_price']['normal_cleaning']['Net'];
-    drap = json['laundry_price']['normal_cleaning']['Drap'];
-    topper = json['laundry_price']['normal_cleaning']['Topper'];
-    pillow = json['laundry_price']['normal_cleaning']['Pillow'];
-    comple = json['laundry_price']['others']['Comple'];
-    vietnamDress = json['laundry_price']['others']['VietnamDress'];
-    weedingDress = json['laundry_price']['others']['WeddingDress'];
-    bleaching = json['laundry_price']['others']['Bleaching'];
+    clothes =
+        json['laundry_price']['price_clothes']['normal_cleaning']['Clothes'];
+    blanket =
+        json['laundry_price']['price_clothes']['normal_cleaning']['Blanket'];
+    mosquito =
+        json['laundry_price']['price_clothes']['normal_cleaning']['Mosquito'];
+    net = json['laundry_price']['price_clothes']['normal_cleaning']['Net'];
+    drap = json['laundry_price']['price_clothes']['normal_cleaning']['Drap'];
+    topper =
+        json['laundry_price']['price_clothes']['normal_cleaning']['Topper'];
+    pillow =
+        json['laundry_price']['price_clothes']['normal_cleaning']['Pillow'];
+    comple = json['laundry_price']['price_clothes']['others']['Comple'];
+    vietnamDress =
+        json['laundry_price']['price_clothes']['others']['VietnamDress'];
+    weedingDress =
+        json['laundry_price']['price_clothes']['others']['WeddingDress'];
+    bleaching = json['laundry_price']['price_clothes']['others']['Bleaching'];
+
+    clothes_k =
+        json['laundry_price']['price_kg']['normal_cleaning']['Clothes'];
+    blanket_k = json['laundry_price']['price_kg']['normal_cleaning']['Blanket'];
+    mosquito_k =
+        json['laundry_price']['price_kg']['normal_cleaning']['Mosquito'];
+    net_k = json['laundry_price']['price_kg']['normal_cleaning']['Net'];
+    drap_k = json['laundry_price']['price_kg']['normal_cleaning']['Drap'];
+    topper_k = json['laundry_price']['price_kg']['normal_cleaning']['Topper'];
+    pillow_k = json['laundry_price']['price_kg']['normal_cleaning']['Pillow'];
+    comple_k = json['laundry_price']['price_kg']['others']['Comple'];
+    vietnamDress_k =
+        json['laundry_price']['price_kg']['others']['VietnamDress'];
+    weedingDress_k = json['laundry_price']['price_kg']['others']['WeddingDress'];
+    bleaching_k = json['laundry_price']['price_kg']['others']['Bleaching'];
     onPeakDate = json['on_peak_date'];
     onPeakHour = json['on_peak_hour'];
     onHoliday = json['on_holiday'];
@@ -75,6 +108,17 @@ class LaundryPrice {
         'vietnamDress': vietnamDress,
         'weedingDress': weedingDress,
         'bleaching': bleaching,
+        'clothes_k': clothes_k,
+        'blanket_k': blanket_k,
+        'mosquito_k': mosquito_k,
+        'net_k': net_k,
+        'drap_k': drap_k,
+        'topper_k': topper_k,
+        'pillow_k': pillow_k,
+        'comple_k': comple_k,
+        'vietnamDress_k': vietnamDress_k,
+        'weedingDress_k': weedingDress_k,
+        'bleaching_k': bleaching_k,
         'onPeakDate': onPeakDate,
         'onPeakHour': onPeakHour,
         'onHoliday': onHoliday,

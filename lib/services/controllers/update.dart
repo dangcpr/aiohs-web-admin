@@ -191,6 +191,17 @@ class UpdateServiceController {
     required double vietnamDress,
     required double weedingDress,
     required double bleaching,
+    required double clothes_kg,
+    required double blanket_kg,
+    required double mosquito_kg,
+    required double net_kg,
+    required double drap_kg,
+    required double topper_kg,
+    required double pillow_kg,
+    required double comple_kg,
+    required double vietnamDress_kg,
+    required double weedingDress_kg,
+    required double bleaching_kg,
   }) async {
     try {
       final response = await dio.put('/admin/products/LAUNDRY', data: {
@@ -207,25 +218,43 @@ class UpdateServiceController {
           "on_peak_hour": on_peak_hour,
           "on_holiday": on_holiday,
           "on_weekend": on_weekend,
-          "laundry_price": {
-            "normal_cleaning": {
-              "Clothes": clothes,
-              "Blanket": blanket,
-              "Mosquito": mosquito,
-              "Net": net,
-              "Drap": drap,
-              "Topper": topper,
-              "Pillow": pillow
-            },
-            "others": {
-              "Comple": comple,
-              "VietnamDress": vietnamDress,
-              "WeddingDress": weedingDress,
-              "Bleaching": bleaching
-            }
-          },
         },
+        "price_clothes": {
+          "normal_cleaning": {
+            "Clothes": clothes,
+            "Blanket": blanket,
+            "Mosquito": mosquito,
+            "Net": net,
+            "Drap": drap,
+            "Topper": topper,
+            "Pillow": pillow
+          },
+          "others": {
+            "Comple": comple,
+            "VietnamDress": vietnamDress,
+            "WeddingDress": weedingDress,
+            "Bleaching": bleaching
+          }
+        },
+        "price_kg": {
+          "normal_cleaning": {
+            "Clothes": clothes_kg,
+            "Blanket": blanket_kg,
+            "Mosquito": mosquito_kg,
+            "Net": net_kg,
+            "Drap": drap_kg,
+            "Topper": topper_kg,
+            "Pillow": pillow_kg
+          },
+          "others": {
+            "Comple": comple_kg,
+            "VietnamDress": vietnamDress_kg,
+            "WeddingDress": weedingDress_kg,
+            "Bleaching": bleaching_kg
+          }
+        }
       });
+
       if (response.data['code'] == 0) {
         return;
       } else {
@@ -264,7 +293,8 @@ class UpdateServiceController {
     required double built_in_GasRefill,
   }) async {
     try {
-      final response = await dio.put('/admin/products/AIR_CONDITIONING_CLEAN', data: {
+      final response =
+          await dio.put('/admin/products/AIR_CONDITIONING_CLEAN', data: {
         "name": name,
         "title": title,
         "type": "PRODUCT_TYPE_MAIN",
@@ -278,32 +308,32 @@ class UpdateServiceController {
           "on_peak_hour": on_peak_hour,
           "on_holiday": on_holiday,
           "on_weekend": on_weekend,
-          "air_conditioning_clean_price": {
-            "wall": {
-              "Bellow2HP": wall_Bellow2HP,
-              "Above2HP": wall_Above2HP,
-              "GasRefill": wall_GasRefill
-            },
-            "portable": {
-              "Portable": portal_Portable,
-              "GasRefill": portal_GasRefill
-            },
-            "cassette": {
-              "Bellow3HP": cassette_Bellow3HP,
-              "Above3HP": cassette_Above3HP,
-              "GasRefill": cassette_GasRefill
-            },
-            "floor": {
-              "Bellow5HP": floor_Bellow5HP,
-              "Above5HP": floor_Above5HP,
-              "GasRefill": floor_GasRefill
-            },
-            "built_in": {
-              "BuiltIn": built_in_BuiltIn,
-              "GasRefill": built_in_GasRefill
-            }
-          }
         },
+        "special_price": {
+          "wall": {
+            "Bellow2HP": wall_Bellow2HP,
+            "Above2HP": wall_Above2HP,
+            "GasRefill": wall_GasRefill
+          },
+          "portable": {
+            "Portable": portal_Portable,
+            "GasRefill": portal_GasRefill
+          },
+          "cassette": {
+            "Bellow3HP": cassette_Bellow3HP,
+            "Above3HP": cassette_Above3HP,
+            "GasRefill": cassette_GasRefill
+          },
+          "floor": {
+            "Bellow5HP": floor_Bellow5HP,
+            "Above5HP": floor_Above5HP,
+            "GasRefill": floor_GasRefill
+          },
+          "built_in": {
+            "BuiltIn": built_in_BuiltIn,
+            "GasRefill": built_in_GasRefill
+          }
+        }
       });
       if (response.data['code'] == 0) {
         return;
