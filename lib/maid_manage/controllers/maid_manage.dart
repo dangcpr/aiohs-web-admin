@@ -30,7 +30,7 @@ class MaidManageController {
     try {
       var response = await dio.post(
         '/admin/maid-managements/$maid_code/remove',
-        queryParameters: {
+        data: {
           'reason': reason,
         },
       );
