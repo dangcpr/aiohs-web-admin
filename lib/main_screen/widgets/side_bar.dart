@@ -26,14 +26,14 @@ class SideBar extends StatelessWidget {
           DrawerHeader(
             child: Image.asset("assets/images/logo_full.png"),
           ),
-          // DrawerListTile(
-          //   title: "Trang chủ",
-          //   icon: Icons.dashboard,
-          //   press: () {
-          //     context.read<SideBarController>().updateIndex(0);
-          //     context.go('/main/dashboard');
-          //   },
-          // ),
+          DrawerListTile(
+            title: "Trang chủ",
+            icon: Icons.dashboard,
+            press: () {
+              context.read<SideBarController>().updateIndex(0);
+              context.go('/main/dashboard');
+            },
+          ),
           DrawerListTile(
             title: "Quản lý người dùng",
             icon: Icons.person,
@@ -88,6 +88,14 @@ class SideBar extends StatelessWidget {
             press: () {
               context.read<SideBarController>().updateIndex(7);
               context.go('/main/job-posting');
+            },
+          ),
+          DrawerListTile(
+            title: "Quản lý đơn hàng - Chuyển tiền",
+            icon: Icons.money,
+            press: () {
+              context.read<SideBarController>().updateIndex(8);
+              context.go('/main/order-transfer');
             },
           ),
           SizedBox(height: 10),

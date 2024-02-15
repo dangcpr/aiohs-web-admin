@@ -6,9 +6,9 @@ class AreaBooking {
   late String status;
   late String status_display;
   late String title;
-  late int number_rental_days;
-  late int area;
-  late int price;
+  late num number_rental_days;
+  late num area;
+  late num price;
   late String description;
   late List<String> images;
   late String address;

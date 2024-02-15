@@ -18,7 +18,8 @@ class LoginController {
           throw 'Bạn không có quyền truy cập';
         }
 
-        if (response.data['user']['status'] == 'inactive' || response.data['user']['status'] == 'locked') {
+        if (response.data['user']['status'] == 'inactive' ||
+            response.data['user']['status'] == 'locked') {
           throw 'Tài khoản của bạn đã bị khóa';
         }
 
@@ -27,6 +28,38 @@ class LoginController {
         const storage = FlutterSecureStorage();
         await storage.write(key: 'token', value: token);
         debugPrint(await storage.read(key: 'token'));
+
+        User user = User.fromJson(response.data['user']);
+        debugPrint(user.toJson().toString());
+        return user;
+      } else {
+        throw response.data['message'];
+      }
+    } on DioException catch (e) {
+      throw handleError(e);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<User> autoLogin() async {
+    try {
+      const storage = FlutterSecureStorage();
+      var token = await storage.read(key: 'token'); 
+      var response = await dio.post('/user/login:auto', data: {
+        "token": token,
+      });
+      if (response.data['code'] == 0) {
+        if (response.data['user']['role'] != 'admin') {
+          throw 'Bạn không có quyền truy cập';
+        }
+
+        if (response.data['user']['status'] == 'inactive' ||
+            response.data['user']['status'] == 'locked') {
+          throw 'Tài khoản của bạn đã bị khóa';
+        }
+
+        isLogin = true;
 
         User user = User.fromJson(response.data['user']);
         debugPrint(user.toJson().toString());
