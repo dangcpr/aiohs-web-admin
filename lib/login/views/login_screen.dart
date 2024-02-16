@@ -1,3 +1,4 @@
+import 'package:aiohs_web_admin/login/controllers/login.dart';
 import 'package:aiohs_web_admin/login/cubits/login/login_cubit.dart';
 import 'package:aiohs_web_admin/login/cubits/login/login_state.dart';
 import 'package:aiohs_web_admin/login/cubits/user_cubit.dart';
@@ -17,6 +18,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+    autoLogin();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener(
@@ -68,5 +74,16 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void autoLogin() async {
+    try {
+      final user = await LoginController().autoLogin();
+      context.read<UserCubit>().setUser(user);
+      context.go('/main');
+    } catch (e) {
+      print(e);
+    }
+
   }
 }

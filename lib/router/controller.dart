@@ -62,7 +62,7 @@ final router = GoRouter(
         if (isLogin == false)
           return '/login';
         else {
-          return '/main/user-manage';
+          return '/main/dashboard';
         }
       },
     ),

@@ -45,6 +45,7 @@ dependencies:
   data_table_2: ^2.5.9
   month_picker_dialog: ^2.4.0
   intl: ^0.18.1
+  countup: ^0.1.4
 
 dev_dependencies:
   # flutter_launcher_icons: ^0.13.1
