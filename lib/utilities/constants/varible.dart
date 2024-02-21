@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 const fontFamily = 'Poppins-Regular';
 const fontFamilyBold = 'Poppins-ExtraBold';
 const logoFull = 'assets/images/logo_full.png';
-const server = 'http://13.213.83.249:9000';
+const server = 'https:/api.aiohs.site';
 // const debugServer = 'http://192.168.206.129:9000';
 const from_date_default = '2023-10-10';
 final dio = Dio(
