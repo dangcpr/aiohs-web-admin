@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:aiohs_web_admin/responsive/controllers/size.dart';
 import 'package:aiohs_web_admin/utilities/constants/varible.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloudinary/cloudinary.dart';
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 String handleError(DioException e) {
@@ -95,4 +99,28 @@ void showDialogWarning({
     btnOkOnPress: btnOkOnPress,
     btnCancelOnPress: () {},
   ).show();
+}
+
+
+Future<String> uploadImage(File file, PlatformFile platformFile) async {
+  try {
+    final response = await cloudinary.upload(
+      // file: file.path,
+      fileBytes: platformFile.bytes!,
+      resourceType: CloudinaryResourceType.image,
+      folder: "/images",
+      progressCallback: (count, total) {
+        print('Uploading image from file with progress: $count/$total');
+      },
+    );
+
+    if (response.isSuccessful) {
+      return response.url!;
+    } else {
+      throw response.error!;
+    }
+  } catch (e) {
+    debugPrint(e.toString());
+    throw e.toString();
+  }
 }

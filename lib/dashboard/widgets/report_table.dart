@@ -21,7 +21,7 @@ class _ReportTableState extends State<ReportTable> {
     var getReport = context.watch<GetReportCubit>();
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      height: double.infinity,
+      height: 400,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: DataTable2(
         columnSpacing: 12,

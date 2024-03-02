@@ -46,6 +46,10 @@ dependencies:
   month_picker_dialog: ^2.4.0
   intl: ^0.18.1
   countup: ^0.1.4
+  file_picker: ^6.1.1
+  mime: ^1.0.0
+  http_parser: ^4.0.2
+  cloudinary: ^1.2.0
 
 dev_dependencies:
   # flutter_launcher_icons: ^0.13.1

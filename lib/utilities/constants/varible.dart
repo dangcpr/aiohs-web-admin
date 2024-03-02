@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloudinary/cloudinary.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,24 @@ final dio = Dio(
       return status! < 500;
     },
   ),
+);
+
+final dioUpload = Dio(
+  BaseOptions(
+    headers: {'Content-Type': 'multipart/form-data'},
+    baseUrl: server,
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+    validateStatus: (status) {
+      return status! < 500;
+    },
+  ),
+);
+
+final cloudinary = Cloudinary.signedConfig(
+  cloudName: "aiohs",
+  apiKey: "148632498765894",
+  apiSecret: "r813jppTpHitSkg3kCdCQ_nEQFE",
 );
 
 class colorProject {

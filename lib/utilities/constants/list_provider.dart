@@ -5,6 +5,7 @@ import 'package:aiohs_web_admin/job_posting/cubits/get_job_posting/job_posting_c
 import 'package:aiohs_web_admin/login/cubits/user_cubit.dart';
 import 'package:aiohs_web_admin/maid_registration/cubits/maid_registration/maid_registration_cubit.dart';
 import 'package:aiohs_web_admin/main_screen/cubits/page_number.dart';
+import 'package:aiohs_web_admin/order_transfer/cubits/get_transfer_cubit.dart';
 import 'package:aiohs_web_admin/services/cubits/get_service/get_service_cubit.dart';
 import 'package:aiohs_web_admin/user_manage/cubits/get_user/get_user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,5 +37,8 @@ var listProvider = [
   ),
   BlocProvider<GetReportCubit>(
     create: (_) => GetReportCubit(),
+  ),
+  BlocProvider<GetTransferCubit>(
+    create: (_) => GetTransferCubit(),
   )
 ];

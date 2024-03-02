@@ -47,138 +47,202 @@ class _DashboardScreenState extends State<DashboardScreen> {
           title: SelectableText("Trang chủ",
               style: TextStyle(fontFamily: fontFamilyBold)),
         ),
-        body: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(width: 15),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  width: 400,
-                  child: TextFieldBasic(
-                    controller: from_date_controller,
-                    label: 'Từ ngày',
-                    isReadOnly: true,
-                    onTap: () async {
-                      DateTime? dateTime = await showDatePicker(
-                        context: context,
-                        initialDate: from_date,
-                        firstDate: DateTime(2023),
-                        lastDate: now,
-                        currentDate: now,
-                        builder: (BuildContext context, Widget? child) {
-                          return Theme(
-                            data: ThemeData.light().copyWith(
-                              colorScheme: ColorScheme.light(
-                                primary: colorProject.primaryColor,
-                                onPrimary: Colors.white,
-                              ),
-                              buttonTheme: ButtonThemeData(
-                                  textTheme: ButtonTextTheme.primary),
-                            ),
-                            child: child!,
-                          );
-                        },
-                      );
-                      if (dateTime != null) {
-                        setState(() {
-                          from_date = dateTime;
-                          from_date_controller.text =
-                              DateFormat('yyyy-MM-dd').format(dateTime);
-                        });
-                      }
-                    },
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.center,
-                  width: 400,
-                  child: TextFieldBasic(
-                    controller: to_date_controller,
-                    label: 'Đến ngày',
-                    isReadOnly: true,
-                    onTap: () async {
-                      DateTime? dateTime = await showDatePicker(
-                        context: context,
-                        initialDate: to_date,
-                        firstDate: DateTime(2023),
-                        lastDate: now,
-                        currentDate: now,
-                        builder: (BuildContext context, Widget? child) {
-                          return Theme(
-                            data: ThemeData.light().copyWith(
-                              colorScheme: ColorScheme.light(
-                                primary: colorProject.primaryColor,
-                                onPrimary: Colors.white,
-                              ),
-                              buttonTheme: ButtonThemeData(
-                                  textTheme: ButtonTextTheme.primary),
-                            ),
-                            child: child!,
-                          );
-                        },
-                      );
-                      if (dateTime != null) {
-                        setState(() {
-                          to_date = dateTime;
-                          to_date_controller.text =
-                              DateFormat('yyyy-MM-dd').format(dateTime);
-                        });
-                      }
-                    },
-                  ),
-                ),
-                Container(
-                  child: ButtonBasic(
-                    text: 'Tìm kiếm',
-                    onPressed: () {
-                      context.read<GetReportCubit>().getReport(
-                            from_date: from_date_controller.text,
-                            to_date: to_date_controller.text,
-                          );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Responsive.isDesktop(context)
-                ? Wrap(
-                    spacing: 20,
-                    children: [
-                      ReportCard(
-                        title: 'Số đơn đã tạo',
-                        subtitle: context
-                            .watch<GetReportCubit>()
-                            .reportResult
-                            .totalRentalOrderQuantity
-                            .toInt(),
-                        icons: Icons.area_chart,
-                      ),
-                      ReportCard(
-                        title: 'Số đơn đã hoàn thành',
-                        subtitle: context
-                            .watch<GetReportCubit>()
-                            .reportResult
-                            .totalReceivedOrderQuantity
-                            .toInt(),
-                        icons: Icons.show_chart_outlined,
-                      ),
-                      ReportCard(
-                        title: 'Doanh thu (VNĐ)',
-                        subtitle: context
-                            .watch<GetReportCubit>()
-                            .reportResult
-                            .totalReceivedAmount
-                            .toInt(),
-                        icons: Icons.money,
-                      ),
-                    ],
-                  )
-                : Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Responsive.isDesktop(context)
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(width: 15),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          width: 300,
+                          child: TextFieldBasic(
+                            controller: from_date_controller,
+                            label: 'Từ ngày',
+                            isReadOnly: true,
+                            onTap: () async {
+                              DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: from_date,
+                                firstDate: DateTime(2023),
+                                lastDate: now,
+                                currentDate: now,
+                                builder: (BuildContext context, Widget? child) {
+                                  return Theme(
+                                    data: ThemeData.light().copyWith(
+                                      colorScheme: ColorScheme.light(
+                                        primary: colorProject.primaryColor,
+                                        onPrimary: Colors.white,
+                                      ),
+                                      buttonTheme: ButtonThemeData(
+                                          textTheme: ButtonTextTheme.primary),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (dateTime != null) {
+                                setState(() {
+                                  from_date = dateTime;
+                                  from_date_controller.text =
+                                      DateFormat('yyyy-MM-dd').format(dateTime);
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          alignment: Alignment.center,
+                          width: 300,
+                          child: TextFieldBasic(
+                            controller: to_date_controller,
+                            label: 'Đến ngày',
+                            isReadOnly: true,
+                            onTap: () async {
+                              DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: to_date,
+                                firstDate: DateTime(2023),
+                                lastDate: now,
+                                currentDate: now,
+                                builder: (BuildContext context, Widget? child) {
+                                  return Theme(
+                                    data: ThemeData.light().copyWith(
+                                      colorScheme: ColorScheme.light(
+                                        primary: colorProject.primaryColor,
+                                        onPrimary: Colors.white,
+                                      ),
+                                      buttonTheme: ButtonThemeData(
+                                          textTheme: ButtonTextTheme.primary),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (dateTime != null) {
+                                setState(() {
+                                  to_date = dateTime;
+                                  to_date_controller.text =
+                                      DateFormat('yyyy-MM-dd').format(dateTime);
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                        Container(
+                          child: ButtonBasic(
+                            text: 'Tìm kiếm',
+                            onPressed: () {
+                              context.read<GetReportCubit>().getReport(
+                                    from_date: from_date_controller.text,
+                                    to_date: to_date_controller.text,
+                                  );
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(width: 15),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          width: double.infinity,
+                          child: TextFieldBasic(
+                            controller: from_date_controller,
+                            label: 'Từ ngày',
+                            isReadOnly: true,
+                            onTap: () async {
+                              DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: from_date,
+                                firstDate: DateTime(2023),
+                                lastDate: now,
+                                currentDate: now,
+                                builder: (BuildContext context, Widget? child) {
+                                  return Theme(
+                                    data: ThemeData.light().copyWith(
+                                      colorScheme: ColorScheme.light(
+                                        primary: colorProject.primaryColor,
+                                        onPrimary: Colors.white,
+                                      ),
+                                      buttonTheme: ButtonThemeData(
+                                          textTheme: ButtonTextTheme.primary),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (dateTime != null) {
+                                setState(() {
+                                  from_date = dateTime;
+                                  from_date_controller.text =
+                                      DateFormat('yyyy-MM-dd').format(dateTime);
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          child: TextFieldBasic(
+                            controller: to_date_controller,
+                            label: 'Đến ngày',
+                            isReadOnly: true,
+                            onTap: () async {
+                              DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: to_date,
+                                firstDate: DateTime(2023),
+                                lastDate: now,
+                                currentDate: now,
+                                builder: (BuildContext context, Widget? child) {
+                                  return Theme(
+                                    data: ThemeData.light().copyWith(
+                                      colorScheme: ColorScheme.light(
+                                        primary: colorProject.primaryColor,
+                                        onPrimary: Colors.white,
+                                      ),
+                                      buttonTheme: ButtonThemeData(
+                                          textTheme: ButtonTextTheme.primary),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (dateTime != null) {
+                                setState(() {
+                                  to_date = dateTime;
+                                  to_date_controller.text =
+                                      DateFormat('yyyy-MM-dd').format(dateTime);
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                        Container(
+                          child: ButtonBasic(
+                            text: 'Tìm kiếm',
+                            onPressed: () {
+                              context.read<GetReportCubit>().getReport(
+                                    from_date: from_date_controller.text,
+                                    to_date: to_date_controller.text,
+                                  );
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
+              Responsive.isDesktop(context)
+                  ? Wrap(
+                      spacing: 20,
                       children: [
                         ReportCard(
                           title: 'Số đơn đã tạo',
@@ -189,7 +253,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               .toInt(),
                           icons: Icons.area_chart,
                         ),
-                        SizedBox(height: 10),
                         ReportCard(
                           title: 'Số đơn đã hoàn thành',
                           subtitle: context
@@ -199,7 +262,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               .toInt(),
                           icons: Icons.show_chart_outlined,
                         ),
-                        SizedBox(height: 10),
                         ReportCard(
                           title: 'Doanh thu (VNĐ)',
                           subtitle: context
@@ -210,12 +272,46 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           icons: Icons.money,
                         ),
                       ],
+                    )
+                  : Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          ReportCard(
+                            title: 'Số đơn đã tạo',
+                            subtitle: context
+                                .watch<GetReportCubit>()
+                                .reportResult
+                                .totalRentalOrderQuantity
+                                .toInt(),
+                            icons: Icons.area_chart,
+                          ),
+                          SizedBox(height: 10),
+                          ReportCard(
+                            title: 'Số đơn đã hoàn thành',
+                            subtitle: context
+                                .watch<GetReportCubit>()
+                                .reportResult
+                                .totalReceivedOrderQuantity
+                                .toInt(),
+                            icons: Icons.show_chart_outlined,
+                          ),
+                          SizedBox(height: 10),
+                          ReportCard(
+                            title: 'Doanh thu (VNĐ)',
+                            subtitle: context
+                                .watch<GetReportCubit>()
+                                .reportResult
+                                .totalReceivedAmount
+                                .toInt(),
+                            icons: Icons.money,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-            Expanded(
-              child: ReportTable(),
-            ),
-          ],
+              ReportTable()
+            ],
+          ),
         ),
       ),
     );

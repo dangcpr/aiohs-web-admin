@@ -90,14 +90,14 @@ class SideBar extends StatelessWidget {
               context.go('/main/job-posting');
             },
           ),
-          // DrawerListTile(
-          //   title: "Quản lý đơn hàng - Chuyển tiền",
-          //   icon: Icons.money,
-          //   press: () {
-          //     context.read<SideBarController>().updateIndex(8);
-          //     context.go('/main/order-transfer');
-          //   },
-          // ),
+          DrawerListTile(
+            title: "Quản lý giao dịch chuyển tiền",
+            icon: Icons.money,
+            press: () {
+              context.read<SideBarController>().updateIndex(8);
+              context.go('/main/order-transfer');
+            },
+          ),
           SizedBox(height: 10),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
